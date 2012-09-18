@@ -29,3 +29,6 @@ changes in 2012060301
 
 changes in 2012060301
 - added missing lib/adminer.css
+
+changes in 2012091801
+- added support for MSSQL 2008 R2
