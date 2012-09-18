@@ -33,6 +33,7 @@ switch ($CFG->dbtype) {
     case 'pgsql':
         $adminer_driver = 'pgsql';
         break;
+    case 'sqlsrv':
     case 'mssql':
         $adminer_driver = 'mssql';
         break;
