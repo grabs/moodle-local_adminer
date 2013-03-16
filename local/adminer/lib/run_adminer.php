@@ -16,7 +16,7 @@
 
 require_once('../../../config.php');
 require_login();
-require_capability('moodle/site:config', get_context_instance(CONTEXT_SYSTEM));
+require_capability('moodle/site:config', context_system::instance());
 
 function adminer_object() {
     // required to run any plugin
