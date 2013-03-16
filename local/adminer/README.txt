@@ -32,3 +32,7 @@ changes in 2012060301
 
 changes in 2012091801
 - added support for MSSQL 2008 R2
+
+changes in 2013031601
+- it is based on adminer-3.6.4-dev
+- it uses the context_system class since moodle 2.2
