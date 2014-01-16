@@ -40,3 +40,8 @@ changes in 2013031601
 changes in 2013061301
 - it is based on adminer-3.7.1-dev
     look here: https://github.com/vrana/adminer/blob/master/changes.txt
+
+changes in 2014011601
+- it is based on adminer-4.0.2
+    now it doesn't use deprecated ereg functions anymore
+    for more infos see here: https://github.com/vrana/adminer/blob/master/changes.txt
