@@ -45,3 +45,6 @@ changes in 2014011601
 - it is based on adminer-4.0.2
     now it doesn't use deprecated ereg functions anymore
     for more infos see here: https://github.com/vrana/adminer/blob/master/changes.txt
+
+changes in 2014011602
+- ports other than default port are supported now - thanks to Ian Tasker
