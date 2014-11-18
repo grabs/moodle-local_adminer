@@ -77,7 +77,7 @@ echo $OUTPUT->box_end();
 <script type="text/javascript">
 function adminer_init() {
     mywidth = document.documentElement.clientWidth * 0.9;
-    myheight = document.documentElement.clientHeight * 0.9;
+    myheight = document.documentElement.clientHeight * 0.85;
     var obj=document.getElementById("adminer_starter");
     obj.rel="gb_page_center[" + mywidth + "," + myheight + "]";
     GB_showCenter('Adminer', obj.href, myheight, mywidth);
