@@ -62,3 +62,5 @@ changes in 2016061000
 - compatible with php7
 - it is based on adminer-4.2.4
     for more infos see here: https://github.com/vrana/adminer/blob/master/changes.txt
+changes in 2016102000
+- CONTRIB-6566 local_adminer: Hardening the Adminer for Moodle
