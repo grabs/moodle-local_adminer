@@ -14,7 +14,7 @@
     font-size: 1px;
     position: absolute;
     overflow: visible;
-    z-index: 150;
+    z-index: 7000;
 }
 
 #GB_window .content {
@@ -135,9 +135,9 @@
 }
 
 .GB_Window .close { text-align: right; }
-.GB_Window .close span { 
+.GB_Window .close span {
     font-size: 12px;
-    cursor: pointer; 
+    cursor: pointer;
 }
 .GB_Window .close img {
     cursor: pointer;
