@@ -15,18 +15,18 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details.
- *
- * @package    local
+ * @author Andrew Hancox <andrewdchancox@googlemail.com>
+ * @package local
  * @subpackage adminer
- * @copyright  2011 Andreas Grabs
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die;
+defined('MOODLE_INTERNAL') || die();
 
-$plugin->version  = 2016122601;
-$plugin->release = '3.2 (2016122600)';
-$plugin->requires = 2015051103;
-$plugin->maturity = MATURITY_BETA;
-$plugin->component = 'local_adminer';
+$capabilities = array(
+    'local/adminer:useadminer' => array(
+        'riskbitmask'  => RISK_MANAGETRUST | RISK_CONFIG | RISK_XSS | RISK_PERSONAL | RISK_SPAM | RISK_DATALOSS,
+        'captype'      => 'write',
+        'contextlevel' => CONTEXT_SYSTEM
+    ),
+);
+
