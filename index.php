@@ -46,7 +46,7 @@ switch ($CFG->dbtype) {
 }
 
 require_login();
-require_capability('moodle/site:config', context_system::instance());
+require_capability('local/adminer:useadminer', context_system::instance());
 
 admin_externalpage_setup('local_adminer', '', null);
 
