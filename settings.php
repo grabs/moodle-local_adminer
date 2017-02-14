@@ -28,5 +28,6 @@ defined('MOODLE_INTERNAL') || die;
 if ($hassiteconfig) { // needs this condition or there is error on login page
     $ADMIN->add('server', new admin_externalpage('local_adminer',
             get_string('pluginname', 'local_adminer'),
-            new moodle_url('/local/adminer/index.php')));
+            new moodle_url('/local/adminer/index.php'),
+            "local/adminer:useadminer"));
 }
