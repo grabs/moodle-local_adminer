@@ -25,3 +25,4 @@
 
 
 $string['pluginname'] = 'Moodle Adminer';
+$string['adminer:useadminer'] = 'Use Adminer';
