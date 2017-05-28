@@ -5,7 +5,7 @@
     margin: auto;
     top: 0;
     left: 0;
-    z-index: 100;
+    z-index: 5000;
 }
 
 #GB_window {
@@ -14,7 +14,7 @@
     font-size: 1px;
     position: absolute;
     overflow: visible;
-    z-index: 7000;
+    z-index: 5500;
 }
 
 #GB_window .content {
@@ -45,7 +45,7 @@
     top: 10px;
     left: 0;
     margin: 0;
-    z-index: 500;
+    z-index: 5000;
     position: absolute;
     border-bottom: 2px solid #555;
     border-top: 2px solid #555;
@@ -75,7 +75,7 @@
 }
 
 .GB_header .close img {
-    z-index: 500;
+    z-index: 5000;
     cursor: pointer;
 }
 

@@ -70,3 +70,11 @@ changes in 2016122600
 - compatible with moodle_30, moodle_31 and moodle_32
 - it is based on adminer-4.2.5
     for more infos see here: https://github.com/vrana/adminer/blob/master/changes.txt
+
+changes in changes in 2017052800
+- compatible with moodle_31, moodle_32 and moodle_33
+- it is based on adminer-4.3.1
+    for more infos see here: https://github.com/vrana/adminer/blob/master/changes.txt
+- export feature in postgresql is working again
+- higher z-index value for overlay window
+- changed design to price/adminer.css
