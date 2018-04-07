@@ -78,3 +78,9 @@ changes in changes in 2017052800
 - export feature in postgresql is working again
 - higher z-index value for overlay window
 - changed design to price/adminer.css
+
+changes in changes in 2018040700
+- compatible with moodle_31, moodle_33 and moodle_34
+- it is based on adminer-4.6.2
+    for more infos see here: https://github.com/vrana/adminer/blob/master/changes.txt
+- changed design back to default
