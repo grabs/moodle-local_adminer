@@ -26,22 +26,19 @@
 require_once(dirname(__FILE__) . '/../../config.php');
 require_once($CFG->libdir . '/adminlib.php');
 
-$adminer_window_width = 1000;
-$adminer_window_height = 800;
-
 switch ($CFG->dbtype) {
     case 'pgsql':
-        $adminer_driver = 'pgsql';
+        $adminerdriver = 'pgsql';
         break;
     case 'sqlsrv':
     case 'mssql':
-        $adminer_driver = 'mssql';
+        $adminerdriver = 'mssql';
         break;
     case 'oci':
-        $adminer_driver = 'oracle';
+        $adminerdriver = 'oracle';
         break;
     default:
-        $adminer_driver = 'server'; //this is for mysql
+        $adminerdriver = 'server'; //this is for mysql
         break;
 }
 
@@ -53,36 +50,26 @@ admin_externalpage_setup('local_adminer', '', null);
 $PAGE->set_heading($SITE->fullname);
 $PAGE->set_title($SITE->fullname . ': ' . get_string('pluginname', 'local_adminer'));
 
+// Check whether we have a legacy theme (clean, more, ...) or a boost based theme.
+$legacycss = false;
+if ($PAGE->theme->name != 'boost') { // If the theme is not boost itself it could have a boost parent.
+    if (!in_array('boost', $PAGE->theme->parents)) {
+        $legacycss = true;
+    }
+}
+
 raise_memory_limit(MEMORY_HUGE);
 set_time_limit(300);
 
-echo $OUTPUT->header();
-?>
-<script type="text/javascript">
-    var GB_ROOT_DIR = "<?php echo $CFG->wwwroot;?>/local/adminer/box/";
-</script>
-<script type="text/javascript" src="box/AJS.js"></script>
-<script type="text/javascript" src="box/AJS_fx.js"></script>
-<script type="text/javascript" src="box/gb_scripts.js"></script>
-<link href="box/gb_styles.css" rel="stylesheet" type="text/css" />
-<?php
-echo $OUTPUT->heading(get_string('pluginname', 'local_adminer'));
-echo $OUTPUT->box_start('generalbox boxaligncenter boxwidthnormal');
-echo '<p align="center">';
-$adminer_url = $CFG->wwwroot.'/local/adminer/lib/run_adminer.php?'.$adminer_driver.'=&amp;username=';
-echo '<a id="adminer_starter" href="'.$adminer_url.'" title="Adminer" rel="">Launch Adminer</a>';
-echo '</p>';
-echo $OUTPUT->box_end();
-?>
-<script type="text/javascript">
-function adminer_init() {
-    mywidth = document.documentElement.clientWidth * 0.9;
-    myheight = document.documentElement.clientHeight * 0.85;
-    var obj=document.getElementById("adminer_starter");
-    obj.rel="gb_page_center[" + mywidth + "," + myheight + "]";
-    GB_showCenter('Adminer', obj.href, myheight, mywidth);
+$content = new \stdClass();
+$content->adminerurl = new \moodle_url('/local/adminer/lib/run_adminer.php', array($adminerdriver => '', 'username' => ''));
+$content->adminerlaunchtitle = get_string('launchadminer', 'local_adminer');
+$content->title = get_string('pluginname', 'local_adminer');
+if ($legacycss) {
+    $content->legacycss = new \moodle_url('/local/adminer/legacy/legacy.css');
 }
-adminer_init();
-</script>
-<?php
+
+echo $OUTPUT->header();
+echo $OUTPUT->heading(get_string('pluginname', 'local_adminer'));
+echo $OUTPUT->render_from_template('local_adminer/adminer', $content);
 echo $OUTPUT->footer();

@@ -71,7 +71,7 @@ changes in 2016122600
 - it is based on adminer-4.2.5
     for more infos see here: https://github.com/vrana/adminer/blob/master/changes.txt
 
-changes in changes in 2017052800
+changes in 2017052800
 - compatible with moodle_31, moodle_32 and moodle_33
 - it is based on adminer-4.3.1
     for more infos see here: https://github.com/vrana/adminer/blob/master/changes.txt
@@ -79,8 +79,13 @@ changes in changes in 2017052800
 - higher z-index value for overlay window
 - changed design to price/adminer.css
 
-changes in changes in 2018040700
+changes in 2018040700
 - compatible with moodle_31, moodle_33 and moodle_34
 - it is based on adminer-4.6.2
     for more infos see here: https://github.com/vrana/adminer/blob/master/changes.txt
 - changed design back to default
+
+changes in 2018040700
+- compatible with moodle_35
+- replaced grey box with bootstrap modal dialog
+- add a legacy css to work on themes not based on boost
