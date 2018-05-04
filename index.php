@@ -61,9 +61,12 @@ if ($PAGE->theme->name != 'boost') { // If the theme is not boost itself it coul
 raise_memory_limit(MEMORY_HUGE);
 set_time_limit(300);
 
+$adminerurl = new \moodle_url('/local/adminer/lib/run_adminer.php', array($adminerdriver => '', 'username' => ''));
+
 $content = new \stdClass();
-$content->adminerurl = new \moodle_url('/local/adminer/lib/run_adminer.php', array($adminerdriver => '', 'username' => ''));
+$content->adminerurl = $adminerurl->out(false);
 $content->adminerlaunchtitle = get_string('launchadminer', 'local_adminer');
+$content->framebackgroundurl = new \moodle_url('/pix/y/loading.gif');
 $content->title = get_string('pluginname', 'local_adminer');
 if ($legacycss) {
     $content->legacycss = new \moodle_url('/local/adminer/legacy/legacy.css');
