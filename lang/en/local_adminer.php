@@ -24,6 +24,7 @@
  */
 
 
+$string['adminer:useadminer'] = 'Use Adminer';
 $string['launchadminer'] = 'Launch Adminer';
 $string['pluginname'] = 'Moodle Adminer';
-$string['adminer:useadminer'] = 'Use Adminer';
+$string['privacy:metadata'] = 'The Adminer plugin does not store any personal data.';
