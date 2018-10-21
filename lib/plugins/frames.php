@@ -1,4 +1,5 @@
 <?php
+defined('MOODLE_INTERNAL') || die();
 
 /** Allow using Adminer inside a frame (disables ClickJacking protection)
 * @link https://www.adminer.org/plugins/#use
@@ -9,14 +10,14 @@
 class AdminerFrames {
 	/** @access protected */
 	var $sameOrigin;
-	
+
 	/**
 	* @param bool allow running from the same origin only
 	*/
 	function __construct($sameOrigin = false) {
 		$this->sameOrigin = $sameOrigin;
 	}
-	
+
 	function headers() {
 		if ($this->sameOrigin) {
 			header("X-Frame-Options: SameOrigin");
@@ -24,5 +25,5 @@ class AdminerFrames {
 			header_remove("X-Frame-Options");
 		}
 	}
-	
+
 }

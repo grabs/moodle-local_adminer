@@ -89,3 +89,10 @@ changes in 2018040700
 - compatible with moodle_35
 - replaced grey box with bootstrap modal dialog
 - add a legacy css to work on themes not based on boost
+
+changes in 2018102100
+- compatible with moodle_35
+- it is based on adminer-4.6.3
+    for more infos see here: https://github.com/vrana/adminer/blob/master/changes.txt
+- slightly different handling of authentication
+- better support of php 7.2
