@@ -25,6 +25,7 @@
 
 
 $string['adminer:useadminer'] = 'Use Adminer';
+$string['config_startwithdb'] = 'Start adminer with current database';
 $string['launchadminer'] = 'Launch Adminer';
 $string['pagenotusedinmoodle'] = 'This page can not be used in Moodle';
 $string['pluginname'] = 'Moodle Adminer';

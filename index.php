@@ -38,12 +38,14 @@ switch ($CFG->dbtype) {
         $adminerdriver = 'oracle';
         break;
     default:
-        $adminerdriver = 'server'; //this is for mysql
+        $adminerdriver = 'server'; // This is for mysql.
         break;
 }
 
 require_login();
 require_capability('local/adminer:useadminer', context_system::instance());
+
+$myconfig = get_config('local_adminer');
 
 admin_externalpage_setup('local_adminer', '', null);
 
@@ -61,7 +63,11 @@ if ($PAGE->theme->name != 'boost') { // If the theme is not boost itself it coul
 raise_memory_limit(MEMORY_HUGE);
 set_time_limit(300);
 
-$adminerurl = new \moodle_url('/local/adminer/lib/run_adminer.php', array($adminerdriver => '', 'username' => ''));
+$urloptions = array($adminerdriver => '', 'username' => '');
+if (!empty($myconfig->startwithdb)) {
+    $urloptions['db'] = $CFG->dbname;
+}
+$adminerurl = new \moodle_url('/local/adminer/lib/run_adminer.php', $urloptions);
 
 $content = new \stdClass();
 $content->adminerurl = $adminerurl->out(false);
