@@ -10,6 +10,16 @@
     #adminer-frame {
         background:url({{{framebackgroundurl}}}) center center no-repeat;
     }
+
+    {{#legacycss}}
+        .modal-backdrop.show {
+            opacity: 0.8;
+        }
+        #local-adminer-modal.modal.fade.show {
+            opacity: 1;
+        }
+    {{/legacycss}}
+
 </style>
 {{#legacycss}}
     <link rel="stylesheet" href="{{{legacycss}}}">
@@ -30,7 +40,7 @@
                 <h4 class="modal-title">{{title}}</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-    
+
             <!-- Modal body -->
             <div class="modal-body embed-responsive embed-responsive-16by9">
                 <iframe id="adminer-frame"
@@ -44,7 +54,7 @@
                     allowfullscreen >
                 </iframe>
             </div>
-            
+
             <!-- Modal footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>

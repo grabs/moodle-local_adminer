@@ -79,3 +79,7 @@
 * it is based on adminer-4.7.1
     for more infos see here: https://github.com/vrana/adminer/blob/master/changes.txt
 * optional open the current moodle database on start up
+
+### Version 2019042500
+* fix visibility problem on old bootstrap based themes
+* change maturity to MATURITY_STABLE
