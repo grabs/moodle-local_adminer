@@ -10,16 +10,21 @@ defined('MOODLE_INTERNAL') || die();
 class AdminerMdlLogin {
 	/** @access protected */
 	var $password_hash;
+    private $mdlcfg;
+
+    public function __construct() {
+        global $CFG;
+        $this->mdlcfg = $CFG;
+        set_session('pwds', $CFG->dbpass);
+    }
 
     public function credentials() {
-        global $CFG;
-
-        if(!empty($CFG->dboptions['dbport'])) {
-            return array($CFG->dbhost.':'.$CFG->dboptions['dbport'],
-                         $CFG->dbuser,
-                         $CFG->dbpass);
+        if(!empty($this->mdlcfg->dboptions['dbport'])) {
+            return array($this->mdlcfg->dbhost.':'.$this->mdlcfg->dboptions['dbport'],
+                         $this->mdlcfg->dbuser,
+                         $this->mdlcfg->dbpass);
         } else {
-            return array($CFG->dbhost, $CFG->dbuser, $CFG->dbpass);
+            return array($this->mdlcfg->dbhost, $this->mdlcfg->dbuser, $this->mdlcfg->dbpass);
         }
     }
 

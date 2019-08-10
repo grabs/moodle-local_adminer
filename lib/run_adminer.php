@@ -31,6 +31,7 @@ function adminer_object() {
         // specify enabled plugins here
         new AdminerFrames(true),
         new AdminerMdlLogin(),
+        new AdminerMdlDesigns(),
     );
 
     return new AdminerPlugin($plugins);
