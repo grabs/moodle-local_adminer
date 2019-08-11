@@ -88,3 +88,6 @@
 * it is based on adminer-4.7.2
     for more infos see here: https://github.com/vrana/adminer/blob/master/changes.txt
 * now it uses the css from current theme.
+
+### Version 2019081001
+* add icons based on moodle icons
