@@ -75,3 +75,7 @@ html > body #content p.links a[href*="&create="] {
     background-size: contain;
     padding-left: 25px;
 }
+
+html > body #content fieldset > legend {
+    font-size: 1rem;
+}

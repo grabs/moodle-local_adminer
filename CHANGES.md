@@ -91,3 +91,6 @@
 
 ### Version 2019081001
 * add icons based on moodle icons
+
+### Version 2019090900
+* it is based on adminer-4.7.3
