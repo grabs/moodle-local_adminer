@@ -45,12 +45,7 @@
             <div class="modal-body embed-responsive embed-responsive-16by9">
                 <iframe id="adminer-frame"
                     class="embed-responsive-item"
-                    {{#legacycss}}
-                        src="{{{adminerurl}}}"
-                    {{/legacycss}}
-                    {{^legacycss}}
-                        src=""
-                    {{/legacycss}}
+                    src=""
                     allowfullscreen >
                 </iframe>
             </div>
@@ -63,17 +58,9 @@
     </div>
 </div>
 {{#js}}
-    require(['theme_boost/modal']);
     require(['theme_boost/loader']);
-        {{#legacycss}}
-            $(window).on('load',function(){
-                $('#local-adminer-modal').modal('show');
-            });
-        {{/legacycss}}
-        {{^legacycss}}
-            require(['jquery'], function($) {
-                $('#adminer-frame').attr('src', '{{{adminerurl}}}');
-                $('#adminerlauncher').click();
-            });
-        {{/legacycss}}
+    require(['theme_boost/modal'], function(modal) {
+        $('#local-adminer-modal').modal('show');
+        $('#adminer-frame').attr('src', '{{{adminerurl}}}');
+    });
 {{/js}}
