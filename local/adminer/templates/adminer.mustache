@@ -1,0 +1,66 @@
+<style type="text/css">
+    .modal-dialog {
+        max-width: 80%;
+        margin-top: 5px;
+        margin-bottom: 0;
+    }
+    .modal-content {
+        max-height: 99vh;
+    }
+    #adminer-frame {
+        background:url({{{framebackgroundurl}}}) center center no-repeat;
+    }
+
+    {{#legacycss}}
+        .modal-backdrop.show {
+            opacity: 0.8;
+        }
+        #local-adminer-modal.modal.fade.show {
+            opacity: 1;
+        }
+    {{/legacycss}}
+
+</style>
+{{#legacycss}}
+    <link rel="stylesheet" href="{{{legacycss}}}">
+{{/legacycss}}
+
+<!-- Button to Open the Modal -->
+<button id="adminerlauncher" type="button" class="btn btn-primary" data-toggle="modal" data-target="#local-adminer-modal">
+    {{adminerlaunchtitle}}
+</button>
+
+<!-- The Modal -->
+<div class="modal fade" id="local-adminer-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">{{title}}</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body embed-responsive embed-responsive-16by9">
+                <iframe id="adminer-frame"
+                    class="embed-responsive-item"
+                    src=""
+                    allowfullscreen >
+                </iframe>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{#js}}
+    require(['theme_boost/loader']);
+    require(['theme_boost/modal'], function(modal) {
+        $('#local-adminer-modal').modal('show');
+        $('#adminer-frame').attr('src', '{{{adminerurl}}}');
+    });
+{{/js}}
