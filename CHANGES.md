@@ -97,3 +97,7 @@
 
 ### Version 2019100900
 * adjustments for moodle 3.8
+
+### Version 2020011200
+* it is based on adminer-4.7.5
+* This version works with Moodle 3.5, 3.6, 3.7, 3.8
