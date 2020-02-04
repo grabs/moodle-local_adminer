@@ -15,9 +15,12 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @author Andrew Hancox <andrewdchancox@googlemail.com>
- * @package local
- * @subpackage adminer
+ * Capability definitions
+ *
+ * @package local_adminer
+ * @author Andreas Grabs <moodle@grabs-edv.de>
+ * @copyright  Andreas Grabs
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();

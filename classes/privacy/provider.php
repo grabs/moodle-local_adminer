@@ -17,8 +17,8 @@
 /**
  * Run the code checker from the web.
  *
- * @package    local
- * @subpackage adminer
+ * @package    local_adminer
+ * @author Andreas Grabs <moodle@grabs-edv.de>
  * @copyright  Andreas Grabs
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

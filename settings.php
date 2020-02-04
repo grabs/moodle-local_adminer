@@ -17,9 +17,9 @@
 /**
  * Add page to admin menu.
  *
- * @package    local
- * @subpackage adminer
- * @copyright  2011 Andreas Grabs
+ * @package    local_adminer
+ * @author Andreas Grabs <moodle@grabs-edv.de>
+ * @copyright  Andreas Grabs
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
