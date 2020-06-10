@@ -94,9 +94,10 @@
     </div>
 </div>
 {{#js}}
-    require(['theme_boost/loader']);
-    require(['theme_boost/modal'], function(modal) {
+    require(['theme_boost/bootstrap/modal'], function(modal) {
         $('#local-adminer-modal').modal('show');
+    });
+    $('#local-adminer-modal').on('shown.bs.modal', function(element) {
         $('#adminer-frame').attr('src', '{{{adminerurl}}}');
     });
 {{/js}}
