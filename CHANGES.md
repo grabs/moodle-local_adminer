@@ -106,3 +106,7 @@
 * it is based on adminer-4.7.6
 * small changes for coding style
 * This version works with Moodle 3.5, 3.6, 3.7, 3.8
+
+### Version 2020060100
+* it is based on adminer-4.7.7
+* This version works with Moodle 3.5, 3.6, 3.7, 3.8
