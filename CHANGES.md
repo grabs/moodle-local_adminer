@@ -114,3 +114,6 @@
 ### Version 2020060100
 * Fixes for Moodle 3.9
 * This version works with Moodle 3.9
+
+### Version 4.7.8 (2020120600 mdl-39)
+* it is based on adminer-4.7.8
