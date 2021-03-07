@@ -117,3 +117,6 @@
 
 ### Version 4.7.8 (2020120600 mdl-35)
 * it is based on adminer-4.7.8
+
+### Version 4.8.0 (2021030700 mdl-35)
+* it is based on adminer-4.7.8
