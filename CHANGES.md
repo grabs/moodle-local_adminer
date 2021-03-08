@@ -120,3 +120,6 @@
 
 ### Version 4.8.0 (2021030700 mdl-35)
 * it is based on adminer-4.7.8
+
+### Version 4.7.9 (2021030800 mdl-35)
+* Version 4.8.0 was throwing errors
