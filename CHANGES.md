@@ -123,3 +123,6 @@
 
 ### Version 4.8.0 (2021030701 mdl-39)
 * increase version
+
+### Version 4.7.9 (2021030801 mdl-39)
+* Version 4.8.0 was throwing errors
