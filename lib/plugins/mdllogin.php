@@ -15,7 +15,6 @@ class AdminerMdlLogin {
     public function __construct() {
         global $CFG;
         $this->mdlcfg = $CFG;
-        set_session('pwds', $CFG->dbpass);
     }
 
     public function credentials() {
