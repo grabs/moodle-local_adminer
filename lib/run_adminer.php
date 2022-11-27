@@ -14,10 +14,25 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Wrapper that loads the adminer code and its plugins.
+ *
+ * @package    local_adminer
+ * @author Andreas Grabs <moodle@grabs-edv.de>
+ * @copyright  Andreas Grabs
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 require_once('../../../config.php');
 require_login();
 require_capability('local/adminer:useadminer', context_system::instance());
 
+/**
+ * Creates an AdminerPlugin object.
+ * This object is used by the adminer.php code and defines some configurations and features.
+ *
+ * @return AdminerPlugin
+ */
 function adminer_object() {
     // required to run any plugin
     require_once("plugins/plugin.php");

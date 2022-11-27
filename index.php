@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Run the code checker from the web.
+ * Print adminer in an iframe. It chooses the db driver by looking into the Moodle db configuration.
  *
  * @package    local_adminer
  * @author Andreas Grabs <moodle@grabs-edv.de>
@@ -68,12 +68,37 @@ if (!empty($myconfig->startwithdb)) {
     $urloptions['db'] = $CFG->dbname;
 }
 $adminerurl = new \moodle_url('/local/adminer/lib/run_adminer.php', $urloptions);
+$framebackgroundurl = new \moodle_url('/pix/y/loading.gif');
+
+$modalcss = '
+    .modal-dialog {
+        max-width: 80%;
+        margin-top: 5px;
+        margin-bottom: 0;
+    }
+    .modal-content {
+        max-height: 99vh;
+    }
+    #adminer-frame {
+        background:url('.$framebackgroundurl->out().') center center no-repeat;
+    }
+
+    {{#legacycss}}
+        .modal-backdrop.show {
+            opacity: 0.8;
+        }
+        #local-adminer-modal.modal.fade.show {
+            opacity: 1;
+        }
+    {{/legacycss}}
+';
 
 $content = new \stdClass();
 $content->adminerurl = $adminerurl->out(false);
 $content->adminerlaunchtitle = get_string('launchadminer', 'local_adminer');
-$content->framebackgroundurl = new \moodle_url('/pix/y/loading.gif');
+// $content->framebackgroundurl = new \moodle_url('/pix/y/loading.gif');
 $content->title = get_string('pluginname', 'local_adminer');
+$content->modalcss = $modalcss;
 if ($legacycss) {
     $content->legacycss = new \moodle_url('/local/adminer/legacy/legacy.css');
 }

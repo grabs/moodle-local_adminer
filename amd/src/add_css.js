@@ -1,4 +1,3 @@
-<?php
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -15,18 +14,21 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details.
+ * Add css needed by the modal iframe.
  *
- * @package    local_adminer
- * @author     Andreas Grabs <moodle@grabs-edv.de>
- * @copyright  Andreas Grabs
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @author      Andreas Grabs <info@grabs-edv.de>
+ * @copyright   2018 onwards Grabs EDV {@link https://www.grabs-edv.de}
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die;
+define(function() {
+    return {
+        'init': function(css) {
+            var head = document.head || document.getElementsByTagName('head')[0];
+            var mystyle = document.createElement('style');
 
-$plugin->version  = 2021051702;
-$plugin->release = '4.8.1-2 (2022112700 mdl-39)';
-$plugin->requires = 2019111200;
-$plugin->maturity = MATURITY_STABLE;
-$plugin->component = 'local_adminer';
+            mystyle.innerHTML = css;
+            head.appendChild(mystyle);
+        }
+    };
+});

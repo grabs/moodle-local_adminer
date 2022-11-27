@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Run the code checker from the web.
+ * Privacy implementation
  *
  * @package    local_adminer
  * @author Andreas Grabs <moodle@grabs-edv.de>
@@ -24,8 +24,6 @@
  */
 
 namespace local_adminer\privacy;
-
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * The local plugin adminer does not store any data.
