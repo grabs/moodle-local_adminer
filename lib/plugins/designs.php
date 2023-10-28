@@ -7,13 +7,12 @@
 * @license https://www.gnu.org/licenses/gpl-2.0.html GNU General Public License, version 2 (one or other)
 */
 class AdminerMdlDesigns {
-	function css() {
+    function css() {
         global $OUTPUT, $PAGE, $CFG;
         $PAGE->set_context(\context_system::instance());
         // print_r($PAGE->theme->css_urls($PAGE));exit;
         $cssurls = $PAGE->theme->css_urls($PAGE);
         $cssurls[] = $CFG->wwwroot . '/local/adminer/lib/plugins/additional.css';
         return $cssurls;
-	}
-
+    }
 }
