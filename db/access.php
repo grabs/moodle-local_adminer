@@ -15,21 +15,19 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Capability definitions
+ * Capability definitions.
  *
  * @package local_adminer
  * @author Andreas Grabs <moodle@grabs-edv.de>
  * @copyright  Andreas Grabs
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+defined('MOODLE_INTERNAL') || die;
 
-defined('MOODLE_INTERNAL') || die();
-
-$capabilities = array(
-    'local/adminer:useadminer' => array(
+$capabilities = [
+    'local/adminer:useadminer' => [
         'riskbitmask'  => RISK_MANAGETRUST | RISK_CONFIG | RISK_XSS | RISK_PERSONAL | RISK_SPAM | RISK_DATALOSS,
         'captype'      => 'write',
-        'contextlevel' => CONTEXT_SYSTEM
-    ),
-);
-
+        'contextlevel' => CONTEXT_SYSTEM,
+    ],
+];

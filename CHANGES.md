@@ -1,5 +1,12 @@
 ## Release notes
 
+### Version 4.8.2 (2022112700)
+* Due to the lag of updates now it is based on AdminerEvo a new fork of the original Adminer
+    For more infos see here: https://github.com/adminerevo/adminerevo
+* Removed the "Logout" button
+* Apply new coding style
+* Adjust github actions
+
 ### Version 4.8.1-2 (2022112700 mdl-39)
 * Add github actions
 * Add simple behat test
