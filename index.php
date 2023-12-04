@@ -98,6 +98,9 @@ $content->adminerurl         = $adminerurl->out(false);
 $content->adminerlaunchtitle = get_string('launchadminer', 'local_adminer');
 $content->title              = get_string('pluginname', 'local_adminer');
 $content->modalcss           = $modalcss;
+if (!empty($CFG->local_adminer_disabled)) {
+    $content->disabled = $CFG->local_adminer_disabled;
+}
 if ($legacycss) {
     $content->legacycss = new \moodle_url('/local/adminer/legacy/legacy.css');
 }

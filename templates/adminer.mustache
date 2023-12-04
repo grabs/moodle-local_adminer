@@ -34,6 +34,9 @@
     }
 }}
 
+
+{{^disabled}}
+
 {{#legacycss}}
     <link rel="stylesheet" href="{{{legacycss}}}">
 {{/legacycss}}
@@ -77,3 +80,9 @@
         addcss.init(`{{{modalcss}}}`);
     });
 {{/js}}
+
+{{/disabled}}
+
+{{#disabled}}
+<div class="alert alert-info" role="alert">{{#str}} disabled, local_adminer {{/str}}</div>
+{{/disabled}}

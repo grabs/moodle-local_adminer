@@ -26,6 +26,7 @@
 
 $string['adminer:useadminer'] = 'Use Adminer';
 $string['config_startwithdb'] = 'Start adminer with current database';
+$string['disabled'] = 'Adminer is disabled in config.php, because `$CFG->local_adminer_disabled = true;` is set.';
 $string['launchadminer'] = 'Launch Adminer';
 $string['pagenotusedinmoodle'] = 'This page can not be used in Moodle';
 $string['pluginname'] = 'Moodle Adminer';

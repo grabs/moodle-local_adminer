@@ -23,3 +23,10 @@ After that you have to go to http://your-moodle/admin (Site administration -> No
 
 ### Using:
 To use Moodle Adminer go to "Site administration" -> "Server" -> "Moodle Adminer".
+
+### Config-Setting
+While the administrator is desired on development and test instances, it can sometimes be undesirable for the site admin to have direct DB access on production environments. For this use case, the following setting can be made in config.php to prevent access.
+
+```
+$CFG->local_adminer_disabled = true;
+```
