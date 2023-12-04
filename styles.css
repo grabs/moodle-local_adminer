@@ -93,3 +93,7 @@ html > body form p.links span.separator::after {
 html > body #menu {
     background-image: none;
 }
+
+#local-adminer-modal > .modal-dialog {
+    max-width: 100%;
+}
