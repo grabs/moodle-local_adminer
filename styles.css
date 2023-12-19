@@ -96,4 +96,8 @@ html > body #menu {
 
 #local-adminer-modal > .modal-dialog {
     max-width: 100%;
+    height: 100%;
+}
+#local-adminer-modal > .modal-dialog > .modal-content {
+    height: 99vh;
 }

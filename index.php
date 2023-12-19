@@ -26,31 +26,15 @@
 require_once(__DIR__ . '/../../config.php');
 require_once($CFG->libdir . '/adminlib.php');
 
-switch ($CFG->dbtype) {
-    case 'pgsql':
-        $adminerdriver = 'pgsql';
-        break;
-    case 'sqlsrv':
-    case 'mssql':
-        $adminerdriver = 'mssql';
-        break;
-    case 'oci':
-        $adminerdriver = 'oracle';
-        break;
-    default:
-        $adminerdriver = 'server'; // This is for mysql.
-        break;
-}
-
 require_login();
 require_capability('local/adminer:useadminer', context_system::instance());
-
-$myconfig = get_config('local_adminer');
 
 admin_externalpage_setup('local_adminer', '', null);
 
 $PAGE->set_heading($SITE->fullname);
 $PAGE->set_title($SITE->fullname . ': ' . get_string('pluginname', 'local_adminer'));
+
+\local_adminer\util::handle_disabled();
 
 // Check whether we have a legacy theme (clean, more, ...) or a boost based theme.
 $legacycss = false;
@@ -63,11 +47,7 @@ if ($PAGE->theme->name != 'boost') { // If the theme is not boost itself it coul
 raise_memory_limit(MEMORY_HUGE);
 set_time_limit(300);
 
-$urloptions = [$adminerdriver => '', 'username' => ''];
-if (!empty($myconfig->startwithdb)) {
-    $urloptions['db'] = $CFG->dbname;
-}
-$adminerurl         = new \moodle_url('/local/adminer/lib/run_adminer.php', $urloptions);
+$adminerurl         = \local_adminer\util::get_adminer_url();
 $framebackgroundurl = new \moodle_url('/pix/y/loading.gif');
 
 $modalcss = '

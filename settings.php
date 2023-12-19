@@ -27,20 +27,32 @@ defined('MOODLE_INTERNAL') || die;
 if ($hassiteconfig) {
     $pluginname = get_string('pluginname', 'local_adminer');
 
-    $ADMIN->add('server', new admin_externalpage(
-        'local_adminer',
-        $pluginname,
-        new moodle_url('/local/adminer/index.php'),
-        'local/adminer:useadminer')
-    );
+    $adminersecret = $CFG->local_adminer_secret ?? '';
+    if ($adminersecret !== \local_adminer\util::DISABLED_SECRET) {
+        $ADMIN->add('server', new admin_externalpage(
+            'local_adminer',
+            $pluginname,
+            new moodle_url('/local/adminer/index.php'),
+            'local/adminer:useadminer')
+        );
+    }
 
     $settings = new admin_settingpage('local_adminer_settings', $pluginname);
     $ADMIN->add('localplugins', $settings);
 
     $configs = [];
 
+    $templatecontext = [
+        'disabledsecret' => \local_adminer\util::DISABLED_SECRET,
+    ];
     $configs[] = new admin_setting_heading(
-        'local_adminer',
+        'local_adminer_securitynote',
+        '',
+        $OUTPUT->render_from_template('local_adminer/security_note', $templatecontext)
+    );
+
+    $configs[] = new admin_setting_heading(
+        'local_adminer_settings',
         get_string('settings'),
         ''
     );

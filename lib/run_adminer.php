@@ -52,4 +52,11 @@ function adminer_object() {
     return new AdminerPlugin($plugins);
 }
 // include original Adminer or Adminer Editor
-require_once("adminer.php");
+if (\local_adminer\util::check_adminer_secret()) {
+    // Prevent loading adminer while running tests.
+    if (defined('BEHAT_SITE_RUNNING') || PHPUNIT_TEST) {
+        echo 'Ok';
+        exit;
+    }
+    require_once("adminer.php");
+}

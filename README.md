@@ -23,3 +23,11 @@ After that you have to go to http://your-moodle/admin (Site administration -> No
 
 ### Using:
 To use Moodle Adminer go to "Site administration" -> "Server" -> "Moodle Adminer".
+
+### Security note:
+Due to the high security risk of using Adminer, an additional key can be defined in **config.php**.<br>
+**Example:**<br>
+`$CFG->local_adminer_secret = 'your-secret-key';`<br>
+If you want to fully disable Adminer you can define "!!!" as Adminer secret.<br>
+**Example:**<br>
+`$CFG->local_adminer_secret = '!!!';`

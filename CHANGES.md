@@ -1,6 +1,12 @@
 ## Release notes
 
-### Version 4.8.2 (2022112700)
+### Version 4.8.3 (20231219)
+* New version of Adminer [Releases notes](https://github.com/adminerevo/adminerevo/releases/tag/v4.8.3)
+* MBS-8480: Fix modal width on error output (#16)
+* Change the modal height to 100%, so on mobile divices it is displayed in fullscreen.
+* Add an additional check for a setting in config.php "$CFG->local_adminer_secret".
+
+### Version 4.8.2 (2023112700)
 * Due to the lag of updates now it is based on AdminerEvo a new fork of the original Adminer
     For more infos see here: https://github.com/adminerevo/adminerevo
 * Removed the "Logout" button
