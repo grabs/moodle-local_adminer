@@ -15,30 +15,33 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Privacy implementation
- *
+ * Settings page to show a customized link on the admin settings tree.
  * @package    local_adminer
  * @author Andreas Grabs <moodle@grabs-edv.de>
  * @copyright  Andreas Grabs
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace local_adminer\privacy;
+namespace local_adminer;
+
+use local_adminer\globals as gl;
 
 /**
- * The local plugin adminer does not store any data.
- *
- * @copyright  2018 Andreas Grabs <moodle@grabs-edv.de>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * Settings page providing a tabbed view.
+ * @package     local_adminer
+ * @author      Andreas Grabs <info@grabs-edv.de>
+ * @copyright   2018 onwards Grabs EDV {@link https://www.grabs-edv.de}
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class provider implements \core_privacy\local\metadata\null_provider {
+class admin_settingspage_tabs extends \admin_settingpage {
     /**
-     * Get the language string identifier with the component's language
-     * file to explain why this plugin stores no data.
+     * Generate the HTML output.
      *
-     * @return  string
+     * @return string
      */
-    public static function get_reason(): string {
-        return 'privacy:metadata';
+    public function output_html() {
+        global $OUTPUT;
+
+        return '<a href="blabla">hjallllllllo</a>';
     }
 }

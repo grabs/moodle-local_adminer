@@ -43,10 +43,13 @@ class secret_form extends \moodleform {
      * @return void
      */
     public function definition() {
+        global $OUTPUT;
+
         $mform = $this->_form;
 
         $elementarray = [];
 
+        $mform->addElement('static', 'statictitle', '', $OUTPUT->render_from_template('local_adminer/secret_note', []));
         $mform->addElement('static', 'statictitle', '', get_string('adminer_secret', 'local_adminer'));
         $textbox = $mform->createElement('password', 'adminersecret');
         $mform->setType('adminersecret', PARAM_RAW);

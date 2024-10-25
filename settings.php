@@ -66,6 +66,13 @@ if ($hassiteconfig) {
         $options
     );
 
+    $configs[] = new admin_setting_configcheckbox(
+        'showquicklink',
+        get_string('showquicklink', 'local_adminer'),
+        get_string('showquicklink_help', 'local_adminer'),
+        1
+    );
+
     // Put all settings into the settings page.
     foreach ($configs as $config) {
         $config->plugin = 'local_adminer';

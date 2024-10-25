@@ -7,10 +7,16 @@
 * @license https://www.gnu.org/licenses/gpl-2.0.html GNU General Public License, version 2 (one or other)
 */
 class AdminerMdlDesigns {
-    function css() {
+
+    /**
+    * This function is responsible for returning an array of CSS URLs to be included in the Adminer interface.
+    * It allows to add additional custom CSS styles to enhance the user experience.
+    *
+    * @return array An array of CSS URLs to be included in the Adminer interface.
+    */
+   function css() {
         global $OUTPUT, $PAGE, $CFG;
         $PAGE->set_context(\context_system::instance());
-        // print_r($PAGE->theme->css_urls($PAGE));exit;
         $cssurls = $PAGE->theme->css_urls($PAGE);
         $cssurls[] = $CFG->wwwroot . '/local/adminer/lib/plugins/additional.css';
         return $cssurls;

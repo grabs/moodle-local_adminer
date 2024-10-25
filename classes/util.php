@@ -83,6 +83,10 @@ class util {
         global $CFG, $SESSION, $OUTPUT, $PAGE, $FULLME;
 
         $adminersecret = $CFG->local_adminer_secret ?? '';
+        if (empty($adminersecret)) {
+            unset($SESSION->local_adminer_secret);
+            return true;
+        }
 
         $PAGE->set_context(\context_system::instance());
         $PAGE->set_url(new \moodle_url($FULLME));
@@ -105,8 +109,8 @@ class util {
 
         $loadedsecret = $SESSION->local_adminer_secret ?? '';
         if ($loadedsecret !== $adminersecret) {
-            \core\notification::warning(get_string('adminer_secret_note', 'local_adminer'));
             echo $OUTPUT->header();
+            echo $OUTPUT->heading(get_string('pluginname', 'local_adminer'));
             $secretform->display();
             echo $OUTPUT->footer();
             die;

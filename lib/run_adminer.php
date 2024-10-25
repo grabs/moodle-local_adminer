@@ -53,10 +53,23 @@ function adminer_object() {
 }
 // include original Adminer or Adminer Editor
 if (\local_adminer\util::check_adminer_secret()) {
+    static $adminerlang;
+    $currentlang = current_language();
+    if (empty($adminerlang) || $adminerlang!= $currentlang) {
+        $adminerlang = $currentlang;
+        unset($_SESSION['translations']);
+        $_SERVER['HTTP_ACCEPT_LANGUAGE'] = $adminerlang;
+    };
+
     // Prevent loading adminer while running tests.
     if (defined('BEHAT_SITE_RUNNING') || PHPUNIT_TEST) {
-        echo 'Ok';
+        if (optional_param('db', null, PARAM_TEXT)) {
+            echo 'Adminer started with database';
+        } else {
+            echo 'Adminer started without database';
+        }
         exit;
     }
+
     require_once("adminer.php");
 }

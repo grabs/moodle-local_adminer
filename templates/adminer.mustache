@@ -42,6 +42,7 @@
 <button id="adminerlauncher" type="button" class="btn btn-primary" data-toggle="modal" data-target="#local-adminer-modal">
     {{adminerlaunchtitle}}
 </button>
+<a class="btn btn-secondary" href="{{{adminerurl}}}" target="_blank" title="{{#str}} openinnewtab, local_adminer {{/str}}"><i class="fa fa-external-link"></i></a>
 
 <!-- The Modal -->
 <div class="modal fade" id="local-adminer-modal">
@@ -50,7 +51,10 @@
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">{{title}}</h4>
+                <h4 class="modal-title">
+                    {{title}}
+                    <a id="adminer-open-new-tab" href="{{{adminerurl}}}" target="_blank" title="{{#str}} openinnewtab, local_adminer {{/str}}"><i class="fa fa-external-link"></i></a>
+                </h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
@@ -71,9 +75,13 @@
     </div>
 </div>
 {{#js}}
-    require(['local_adminer/modal_events', 'local_adminer/add_css'], function(modalevents, addcss) {
+    require(['local_adminer/modal_events', 'local_adminer/add_css', 'jquery'], function(modalevents, addcss, $) {
         modalevents.init('{{{adminerurl}}}');
         // The value modalcss must be in back ticks because it has multilines!
         addcss.init(`{{{modalcss}}}`);
+        var openlink = document.querySelector('#adminer-open-new-tab');
+        openlink.addEventListener('click', function() {
+            $('#local-adminer-modal').modal('hide');
+        });
     });
 {{/js}}

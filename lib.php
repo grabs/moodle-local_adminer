@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Privacy implementation
+ * Some general functions for the adminer plugin.
  *
  * @package    local_adminer
  * @author Andreas Grabs <moodle@grabs-edv.de>
@@ -23,22 +23,24 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace local_adminer\privacy;
-
 /**
- * The local plugin adminer does not store any data.
+ * Allow plugins to provide some content to be rendered in the navbar.
+ * The plugin must define a PLUGIN_render_navbar_output function that returns
+ * the HTML they wish to add to the navbar.
  *
- * @copyright  2018 Andreas Grabs <moodle@grabs-edv.de>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @return string HTML for the navbar
  */
-class provider implements \core_privacy\local\metadata\null_provider {
-    /**
-     * Get the language string identifier with the component's language
-     * file to explain why this plugin stores no data.
-     *
-     * @return  string
-     */
-    public static function get_reason(): string {
-        return 'privacy:metadata';
+function local_adminer_render_navbar_output() {
+    global $OUTPUT;
+
+    $mycfg = get_config('local_adminer');
+    if (empty($mycfg->showquicklink)) {
+        return '';
     }
+
+    $content = new \stdClass();
+    $content->url = \local_adminer\util::get_adminer_url();
+
+    return $OUTPUT->render_from_template('local_adminer/navbar_action', $content);
+
 }

@@ -12,12 +12,19 @@ class AdminerFrames {
 	var $sameOrigin;
 
 	/**
-	* @param bool allow running from the same origin only
-	*/
+	 * Constructor
+	 *
+	 * @param bool allow running from the same origin only
+	 */
 	function __construct($sameOrigin = false) {
 		$this->sameOrigin = $sameOrigin;
 	}
 
+	/**
+	 * Add the desired header to the response headers.
+	 *
+	 * @return void
+	 */
 	function headers() {
 		if ($this->sameOrigin) {
 			header("X-Frame-Options: SameOrigin");
