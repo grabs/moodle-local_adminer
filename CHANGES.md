@@ -1,5 +1,8 @@
 ## Release notes
 
+### Version 4.8.4.1 (20241027)
+* Add missing capability check (#20)
+
 ### Version 4.8.4 (20241025)
 * New version of Adminer [Releases notes](https://github.com/adminerevo/adminerevo/releases/tag/v4.8.4)
 * Add option to show a quick link in the navigation bar

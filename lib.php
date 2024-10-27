@@ -33,6 +33,10 @@
 function local_adminer_render_navbar_output() {
     global $OUTPUT;
 
+    if (!has_capability('local/adminer:useadminer', context_system::instance())) {
+        return '';
+    }
+
     $mycfg = get_config('local_adminer');
     if (empty($mycfg->showquicklink)) {
         return '';
