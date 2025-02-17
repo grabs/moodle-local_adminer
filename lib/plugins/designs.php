@@ -15,8 +15,9 @@ class AdminerMdlDesigns {
     * @return array An array of CSS URLs to be included in the Adminer interface.
     */
    function css() {
-        global $OUTPUT, $PAGE, $CFG;
+        global $PAGE, $CFG;
         $PAGE->set_context(\context_system::instance());
+        $PAGE->set_url(new \moodle_url('/local/adminer/lib/run_adminer.php'));
         $cssurls = $PAGE->theme->css_urls($PAGE);
         $cssurls[] = $CFG->wwwroot . '/local/adminer/lib/plugins/additional.css';
         return $cssurls;

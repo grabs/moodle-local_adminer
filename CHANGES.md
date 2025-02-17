@@ -1,5 +1,9 @@
 ## Release notes
 
+### Version 4.8.4.2 (2025021700)
+* Fix css problem (#22)
+* Make github actions more restrictive
+
 ### Version 4.8.4.1 (20241027)
 * Add missing capability check (#20)
 
