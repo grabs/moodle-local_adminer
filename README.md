@@ -30,4 +30,9 @@ Due to the high security risk of using Adminer, an additional key can be defined
 `$CFG->local_adminer_secret = 'your-secret-key';`<br>
 If you want to fully disable Adminer you can define "!!!" as Adminer secret.<br>
 **Example:**<br>
-`$CFG->local_adminer_secret = '!!!';`
+`$CFG->local_adminer_secret = '!!!';`  
+
+You can also (cumulative) set a specific adminer user and password in **config.php**.<br>
+**Example:**<br>
+`$CFG->local_adminer_user = 'adminer';`<br>
+`$CFG->local_adminer_password = 'adminerpwd';`<br>

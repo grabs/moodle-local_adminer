@@ -23,6 +23,7 @@ class AdminerMdlLogin {
      * Returns the database credentials for Adminer login.
      *
      * If the database port is set in the Moodle configuration, it is appended the to the host.
+     * If the specific Adminer database user and password are set in the Moodle configuration, they are used.
      *
      * @return array an array containing the database host, user, and password
      */
@@ -33,10 +34,18 @@ class AdminerMdlLogin {
             $portstring = '';
         }
 
+        if (!empty($this->mdlcfg->local_adminer_user) && !empty($this->mdlcfg->local_adminer_password)) {
+            $dbuser = $this->mdlcfg->local_adminer_user;
+            $dbpass = $this->mdlcfg->local_adminer_password;
+        } else {
+            $dbuser = $this->mdlcfg->dbuser;
+            $dbpass = $this->mdlcfg->dbpass;
+        }
+    
         return [
             $this->mdlcfg->dbhost . $portstring,
-            $this->mdlcfg->dbuser,
-            $this->mdlcfg->dbpass,
+            $dbuser,
+            $dbpass,
         ];
     }
 
