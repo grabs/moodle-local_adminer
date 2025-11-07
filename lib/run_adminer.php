@@ -27,33 +27,11 @@ require_once('../../../config.php');
 require_login();
 require_capability('local/adminer:useadminer', context_system::instance());
 
-/**
- * Creates an AdminerPlugin object.
- * This object is used by the adminer.php code and defines some configurations and features.
- *
- * @return AdminerPlugin
- */
-function adminer_object() {
-    // required to run any plugin
-    require_once("plugins/plugin.php");
-
-    // autoloader
-    foreach (glob("plugins/*.php") as $filename) {
-        require_once("./$filename");
-    }
-
-    $plugins = array(
-        // specify enabled plugins here
-        new AdminerFrames(true),
-        new AdminerMdlLogin(),
-        new AdminerMdlDesigns(),
-    );
-
-    return new AdminerPlugin($plugins);
-}
 // include original Adminer or Adminer Editor
 if (\local_adminer\util::check_adminer_secret()) {
     static $adminerlang;
+    $mycfg = get_config('local_adminer');
+
     $currentlang = current_language();
     if (empty($adminerlang) || $adminerlang!= $currentlang) {
         $adminerlang = $currentlang;
@@ -63,7 +41,7 @@ if (\local_adminer\util::check_adminer_secret()) {
 
     // Prevent loading adminer while running tests.
     if (defined('BEHAT_SITE_RUNNING') || PHPUNIT_TEST) {
-        if (optional_param('db', null, PARAM_TEXT)) {
+        if (!empty($mycfg->startwithdb)) {
             echo 'Adminer started with database';
         } else {
             echo 'Adminer started without database';
@@ -71,5 +49,36 @@ if (\local_adminer\util::check_adminer_secret()) {
         exit;
     }
 
-    require_once("adminer.php");
+    $driver = \local_adminer\util::get_adminer_driver($CFG->dbtype);
+
+    $dbuser = $CFG->local_adminer_user ?? $CFG->dbuser;
+    $dbpass = $CFG->local_adminer_password ?? $CFG->dbpass;
+
+    $driverparam = optional_param($driver, null, PARAM_TEXT);
+    $userparam = optional_param('username', null, PARAM_TEXT);
+
+    if (empty($driverparam) || empty($userparam)) {
+        // Pass the access data to the adminer script.
+        $_POST['auth'] = [
+            'server'   => $CFG->dbhost,
+            'username' => $dbuser,
+            'password' => $dbpass,
+            'driver'   => \local_adminer\util::get_adminer_driver($CFG->dbtype),
+        ];
+        if (!empty($mycfg->startwithdb)) {
+            $_POST['auth']['db'] = $CFG->dbname;
+        }
+    } else {
+        // Ensure that the username is correct. Only the user from the config.php can be used.
+        if ($userparam !== $dbuser) {
+            die('Invalid username');
+        }
+    }
+
+    // Prevent any output of internal access data if something went wrong.
+    error_reporting(0);
+    ini_set('display_errors', 0);
+
+    // Adminer original Datei einbinden
+    include 'adminer.php';
 }

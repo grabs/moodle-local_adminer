@@ -3,7 +3,7 @@
     <library>
         <location>lib</location>
         <name>AdminNeo</name>
-        <version>4.17.2</version>
+        <version>5.2.0</version>
         <repository>https://github.com/adminneo-org/adminneo</repository>
         <license>Apache License 2.0 or GPL 2</license>
     </library>

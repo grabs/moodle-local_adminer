@@ -1,5 +1,9 @@
 ## Release notes
 
+### Version 5.2.0 (2025110700)
+* add adminer user option (#24)
+* Update Version to adminneo [Releases notes](https://github.com/adminneo-org/adminneo/releases/tag/v5.2.0) (#25)
+
 ### Version 4.17.2 (2025031700)
 * Switch to new Adminer fork adminneo [Releases notes](https://github.com/adminneo-org/adminneo/releases/tag/v4.17.2) (#23)
 * Remove modal feature to simplify the code

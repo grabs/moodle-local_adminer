@@ -31,11 +31,14 @@ if ($hassiteconfig) {
     $adminerdisabled = true;
     if ($adminersecret !== \local_adminer\util::DISABLED_SECRET) {
         $adminerdisabled = false;
-        $ADMIN->add('server', new admin_externalpage(
-            'local_adminer',
-            $pluginname,
-            \local_adminer\util::get_adminer_url(),
-            'local/adminer:useadminer')
+        $ADMIN->add(
+            'server',
+            new admin_externalpage(
+                'local_adminer',
+                $pluginname,
+                \local_adminer\util::get_adminer_url(),
+                'local/adminer:useadminer'
+            )
         );
     }
 

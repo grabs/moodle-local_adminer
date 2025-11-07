@@ -36,7 +36,6 @@ require_once($CFG->libdir . '/formslib.php');
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class secret_form extends \moodleform {
-
     /**
      * Form definition for a single input field.
      *

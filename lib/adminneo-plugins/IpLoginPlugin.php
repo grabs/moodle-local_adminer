@@ -1,0 +1,62 @@
+<?php
+
+namespace AdminNeo;
+
+/**
+ * Restricts login to given IP address.
+ *
+ * If the remote address is a proxy server, it is possible to set additional restriction to the next client in the line
+ * (the last IP address found in X-Forwarded-For HTTP header).
+ *
+ * Last changed in release: v5.2.0
+ *
+ * @link https://www.adminneo.org/plugins/#usage
+ *
+ * @author Jakub Vrana, https://www.vrana.cz/
+ * @author Peter Knut
+ *
+ * @license https://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
+ * @license https://www.gnu.org/licenses/gpl-2.0.html GNU General Public License, version 2 (one or other)
+ */
+class IpLoginPlugin extends Plugin
+{
+	protected $ips;
+	protected $forwardedFor;
+
+	/**
+	 * @param array $ips Allowed IP address prefixes.
+	 * @param array $forwardedFor Allowed X-Forwarded-For prefixes, empty array means no restriction.
+	 */
+	public function __construct(array $ips, array $forwardedFor = [])
+	{
+		$this->ips = $ips;
+		$this->forwardedFor = $forwardedFor;
+	}
+
+	public function authenticate($username, $password)
+	{
+		foreach ($this->ips as $ip) {
+			if (strncasecmp($_SERVER["REMOTE_ADDR"], $ip, strlen($ip)) != 0) {
+				continue;
+			}
+
+			if (!$this->forwardedFor) {
+				return null;
+			}
+
+			$header = isset($_SERVER["HTTP_X_FORWARDED_FOR"]) ? $_SERVER["HTTP_X_FORWARDED_FOR"] : null;
+			if (!$header) {
+				continue;
+			}
+			$header = preg_replace('~.*, *~', "", $header);
+
+			foreach ($this->forwardedFor as $forwardedFor) {
+				if (strncasecmp($header, $forwardedFor, strlen($forwardedFor)) == 0) {
+					return null;
+				}
+			}
+		}
+
+		return lang('Access denied.');
+	}
+}

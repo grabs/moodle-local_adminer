@@ -36,7 +36,6 @@ require_once($CFG->libdir . '/formslib.php');
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class util {
-
     /** The string for $CFG->local_adminer_secret which mean "disabled" */
     public const DISABLED_SECRET = '!!!';
 
@@ -46,32 +45,7 @@ class util {
      * @return \moodle_url
      */
     public static function get_adminer_url() {
-        global $CFG;
-
-        $myconfig = get_config('local_adminer');
-
-        switch ($CFG->dbtype) {
-            case 'pgsql':
-                $adminerdriver = 'pgsql';
-                break;
-            case 'sqlsrv':
-            case 'mssql':
-                $adminerdriver = 'mssql';
-                break;
-            case 'oci':
-                $adminerdriver = 'oracle';
-                break;
-            default:
-                $adminerdriver = 'server'; // This is for mysql.
-                break;
-        }
-
-        $urloptions = [$adminerdriver => '', 'username' => ''];
-        if (!empty($myconfig->startwithdb)) {
-            $urloptions['db'] = $CFG->dbname;
-        }
-
-        return new \moodle_url('/local/adminer/lib/run_adminer.php', $urloptions);
+        return new \moodle_url('/local/adminer/lib/run_adminer.php');
     }
 
     /**
@@ -137,5 +111,30 @@ class util {
             echo $OUTPUT->footer();
             die;
         }
+    }
+
+    /**
+     * Get the adminer driver for the given Moodle dbtype.
+     *
+     * @param string $dbtype The Moodle database type (e.g. 'pgsql', 'sqlsrv', 'mysql').
+     * @return string The name of the adminer driver.
+     */
+    public static function get_adminer_driver(string $dbtype): string {
+        switch ($dbtype) {
+            case 'pgsql':
+                $adminerdriver = 'pgsql';
+                break;
+            case 'sqlsrv':
+            case 'mssql':
+                $adminerdriver = 'mssql';
+                break;
+            case 'oci':
+                $adminerdriver = 'oracle';
+                break;
+            default:
+                $adminerdriver = 'mysql'; // This is for mysql.
+                break;
+        }
+        return $adminerdriver;
     }
 }
