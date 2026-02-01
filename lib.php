@@ -38,7 +38,6 @@ function local_adminer_render_navbar_output() {
         return '';
     }
 
-
     if (!has_capability('local/adminer:useadminer', context_system::instance())) {
         return '';
     }
@@ -52,5 +51,4 @@ function local_adminer_render_navbar_output() {
     $content->url = \local_adminer\util::get_adminer_url();
 
     return $OUTPUT->render_from_template('local_adminer/navbar_action', $content);
-
 }
