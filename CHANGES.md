@@ -1,5 +1,9 @@
 ## Release notes
 
+### Version 5.2.1 (2026020100)
+* Fix error "Invalid CSRF token" (#26)
+* Update Version to adminneo 5.2.1 [Releases notes](https://github.com/adminneo-org/adminneo/releases/tag/v5.2.1)
+
 ### Version 5.2.0 (2025110700)
 * add adminer user option (#24)
 * Update Version to adminneo [Releases notes](https://github.com/adminneo-org/adminneo/releases/tag/v5.2.0) (#25)
