@@ -24,6 +24,8 @@
  */
 
 
+$string['additionalrelations'] = 'Additional relations';
+$string['additionalrelations_help'] = 'Additional relations to define that are not mentioned in database metadata files. Put each relations in new lines. For example, see default value.';
 $string['adminer:useadminer'] = 'Use Adminer';
 $string['adminer_is_disabled_by_admin'] = 'Adminer is disabled by your administrator.';
 $string['adminer_secret'] = 'Adminer secret';
@@ -39,4 +41,6 @@ $string['securitynote'] = 'Security note';
 $string['securitynote_text'] = 'Due to the high security risk of using Adminer, an additional key can be defined in <strong>config.php</strong>.';
 $string['showquicklink'] = 'Show quick link';
 $string['showquicklink_help'] = 'Show a small icon on the navigation bar to open Adminer in a new tab.';
+$string['showrelationlinks'] = 'Show table relations';
+$string['showrelationlinks_help'] = 'Show table relations in separate column.';
 $string['wrong_adminer_secret'] = 'Wrong Adminer secret!';

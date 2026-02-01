@@ -22,6 +22,7 @@
  * @copyright  Andreas Grabs
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
 defined('MOODLE_INTERNAL') || die;
 
 if ($hassiteconfig) {
@@ -86,9 +87,31 @@ if ($hassiteconfig) {
         1
     );
 
+    $configs[] = new admin_setting_configselect(
+        'showrelationlinks',
+        get_string('showrelationlinks', 'local_adminer'),
+        get_string('showrelationlinks_help', 'local_adminer'),
+        1,
+        $options
+    );
+
+    $configs[] = new admin_setting_configtextarea(
+        'additionalrelations',
+        get_string('additionalrelations', 'local_adminer'),
+        get_string('additionalrelations_help', 'local_adminer'),
+        'course_modules.module=modules.id'
+    );
+
     // Put all settings into the settings page.
     foreach ($configs as $config) {
         $config->plugin = 'local_adminer';
         $settings->add($config);
     }
+
+    $settings->hide_if(
+        'local_adminer/additionalrelations',
+        'local_adminer/showrelationlinks',
+        'neq',
+        1
+    );
 }
