@@ -6,6 +6,5 @@ return [
     'navigationMode' => 'dual',
     'preferSelection' => true,
     'versionVerification' => false,
-    'versionVerification' => false,
     'relationLinks' => get_config('local_adminer', 'showrelationlinks') ? 1: 0,
 ];
