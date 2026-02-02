@@ -202,7 +202,7 @@ class MdlForeignKey extends Plugin {
 		}
 
 		$relations = [];
-		require_once(dirname(__FILE__, 2) . DIRECTORY_SEPARATOR . 'relations.php');
+		require(dirname(__FILE__, 2) . DIRECTORY_SEPARATOR . 'relations.php');
 		foreach($relations as $k => $v) {
 			$configadditionalrelations .= "{$k}={$v}" . PHP_EOL;
 		}
