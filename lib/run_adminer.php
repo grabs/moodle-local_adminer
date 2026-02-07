@@ -54,16 +54,21 @@ if (\local_adminer\util::check_adminer_secret()) {
     $dbuser = $CFG->local_adminer_user ?? $CFG->dbuser;
     $dbpass = $CFG->local_adminer_password ?? $CFG->dbpass;
 
+    $dbhost = $CFG->dbhost;
+    if(!empty($CFG->dboptions['dbport'])) {
+        $dbhost .= ':' . $CFG->dboptions['dbport'];
+    }
+
+    // Prevent reposting login data.
     $driverparam = optional_param($driver, null, PARAM_TEXT);
     $userparam = optional_param('username', null, PARAM_TEXT);
-
     if (empty($driverparam) || empty($userparam)) {
         // Pass the access data to the adminer script.
         $_POST['auth'] = [
-            'server'   => $CFG->dbhost,
+            'server'   => $dbhost,
             'username' => $dbuser,
             'password' => $dbpass,
-            'driver'   => \local_adminer\util::get_adminer_driver($CFG->dbtype),
+            'driver'   => $driver,
         ];
         if (!empty($mycfg->startwithdb)) {
             $_POST['auth']['db'] = $CFG->dbname;
