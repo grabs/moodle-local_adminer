@@ -4,7 +4,7 @@ defined('MOODLE_INTERNAL') || die;
 
 return [
     new \AdminNeo\FrameSupportPlugin(),
-    new \AdminNeo\MdlDesign(),
+    new \local_adminer\adminer_plugins\mdl_design(),
     new \AdminNeo\ZipOutputPlugin(),
-    new \AdminNeo\MdlForeignKey(),
+    new \local_adminer\adminer_plugins\mdl_foreign_key(),
 ];

@@ -1,0 +1,44 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_adminer/foreign_key/backward_links
+
+    This template prints the collapsable backward links to the Relations column.
+
+    Example context (json):
+    {
+        "id": "1",
+        "firstlink": {
+            "url": "https://example.com",
+            "name": "relation_1"
+        },
+        "hasmorelinks": true,
+        "morelinks": [
+            {
+                "url": "https://example.com/relation2",
+                "name": "relation_2"
+            },
+            {
+                "url": "https://example.com/relation3",
+                "name": "relation_3"
+            }
+        ]
+    }
+}}
+
+{{#firstlink}}<a href="{{{url}}}">{{name}}</a>{{/firstlink}}{{#hasmorelinks}}<span class="morelink-button"> <a href="#" data-mdlforeignkeybutton="1" data-rowid="{{id}}">[{{#str}}more{{/str}}]</a></span><div class="fk-more hidden">{{#morelinks}}<a href="{{{url}}}">{{name}}</a>
+{{/morelinks}}</div>{{/hasmorelinks}}

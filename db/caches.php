@@ -15,18 +15,17 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details.
+ * Cache definitions.
  *
- * @package    local_adminer
- * @author     Andreas Grabs <moodle@grabs-edv.de>
+ * @package local_adminer
+ * @author Andreas Grabs <moodle@grabs-edv.de>
  * @copyright  Andreas Grabs
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->version  = 2026020102;
-$plugin->release = '5.2.2 (2026020101)';
-$plugin->requires = 2022111800;
-$plugin->maturity = MATURITY_STABLE;
-$plugin->component = 'local_adminer';
+$definitions = [
+    'relations' => [
+        'mode' => cache_store::MODE_APPLICATION,
+    ],
+];

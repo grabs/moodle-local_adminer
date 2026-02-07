@@ -25,7 +25,7 @@
 
 
 $string['additionalrelations'] = 'Additional relations';
-$string['additionalrelations_help'] = 'Additional relations to define that are not mentioned in database metadata files. Put each relations in new lines. For example, see default value.';
+$string['additionalrelations_help'] = 'Additional relations to define that are not calculated from database files (install.xml). Put each relation on a new line. For example, see default value.';
 $string['adminer:useadminer'] = 'Use Adminer';
 $string['adminer_is_disabled_by_admin'] = 'Adminer is disabled by your administrator.';
 $string['adminer_secret'] = 'Adminer secret';
@@ -43,4 +43,5 @@ $string['showquicklink'] = 'Show quick link';
 $string['showquicklink_help'] = 'Show a small icon on the navigation bar to open Adminer in a new tab.';
 $string['showrelationlinks'] = 'Show table relations';
 $string['showrelationlinks_help'] = 'Show table relations in separate column.';
+$string['showrelationlist'] = 'Show calculated relations from XMLDB ...';
 $string['wrong_adminer_secret'] = 'Wrong Adminer secret!';
