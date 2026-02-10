@@ -53,33 +53,72 @@ class xmldb extends \XMLDBAction {
     /** @var array Found foreign key relationships. */
     protected $relationships;
 
-    /** @var array Known FK patterns and their target tables. */
-    protected $knownmappings = [
-        'userid'         => 'user',
-        'user'           => 'user',
-        'creatorid'      => 'user',
-        'usermodified'   => 'user',
-        'usercreated'    => 'user',
-        'reviewerid'     => 'user',
-        'assessorid'     => 'user',
-        'gradedby'       => 'user',
-        'courseid'       => 'course',
-        'course'         => 'course',
-        'category'       => 'course_categories',
-        'contextid'      => 'context',
-        'roleid'         => 'role',
-        'role'           => 'role',
-        'groupid'        => 'groups',
-        'groupingid'     => 'groupings',
-        'moduleid'       => 'modules',
-        'module'         => 'modules',
-        'competencyid'   => 'competency',
-        'planid'         => 'competency_plan',
-        'templateid'     => 'competency_template',
-        'userevidenceid' => 'competency_userevidence',
-        'frameworkid'    => 'competency_framework',
-        'sectionid'      => 'course_sections',
-        'section'        => 'course_sections',
+    /**
+     * Summary of knownmappingfields
+     *
+     * The structure is as follows:
+     * 'reference_tablename' => ['sourcefield1', 'sourcefield2',...],
+     * where sourcefield1, sourcefield2,... are the fields that are known as foreignkey to the "id" field in the reference_table.
+     * @var array
+     */
+    protected $knownmappingfields = [
+        'user' => [
+            'userid',
+            'user',
+            'creatorid',
+            'usermodified',
+            'usercreated',
+            'reviewerid',
+            'assessorid',
+            'gradedby',
+        ],
+        'course' => [
+            'courseid',
+            'course',
+        ],
+        'course_categories' => [
+            'category',
+        ],
+        'course_modules' => [
+            'cmid',
+            'coursemoduleid',
+        ],
+        'context' => [
+            'contextid',
+        ],
+        'role' => [
+            'roleid',
+            'role',
+        ],
+        'groups' => [
+            'groupid',
+        ],
+        'groupings' => [
+            'groupingid',
+        ],
+        'modules' => [
+            'moduleid',
+            'module',
+        ],
+        'competency' => [
+            'competencyid',
+        ],
+        'competency_plan' => [
+            'planid',
+        ],
+        'competency_template' => [
+            'templateid',
+        ],
+        'competency_userevidence' => [
+            'userevidenceid',
+        ],
+        'competency_framework' => [
+            'frameworkid',
+        ],
+        'course_sections' => [
+            'sectionid',
+            'section',
+        ],
     ];
 
     /**
@@ -269,8 +308,8 @@ class xmldb extends \XMLDBAction {
      */
     protected function find_target_table($colname) {
         // Check special mappings first.
-        if (!empty($this->knownmappings[$colname])) {
-            return $this->knownmappings[$colname];
+        if (!empty($this->knownmappings()[$colname])) {
+            return $this->knownmappings()[$colname];
         }
 
         // Check standard pattern: <name>id -> <name>.
@@ -420,6 +459,10 @@ class xmldb extends \XMLDBAction {
      * section indexed by source table and key name, while the back-reference is stored in the
      * 'backkeys' section indexed by target table and target field. The method validates that all
      * required parameters are non-empty before adding the relationship.
+     *
+     * @author     Andreas Grabs <moodle@grabs-edv.de>
+     * @author     Harshil Patel <harshil8595@gmail.com>
+     * @copyright  Andreas Grabs, Harshil Patel
      *
      * @param array $relationmap The existing relation map containing 'keys' and 'backkeys' arrays
      *                          to which the new relationship will be added.
@@ -588,5 +631,30 @@ class xmldb extends \XMLDBAction {
      */
     public function get_non_prefixed_tablename($tablename) {
         return preg_replace('/^' . $this->dbsettings->prefix . '/', '', $tablename);
+    }
+
+    /**
+     * Builds and returns a flattened mapping of field names to their reference tables.
+     *
+     * This method creates a reverse lookup array from the $knownmappingfields property,
+     * where each field name maps directly to its corresponding reference table.
+     *
+     * @return array An associative array where keys are field names and values are their
+     *               corresponding reference table names. For example:
+     *               ['userid' => 'user', 'courseid' => 'course', 'cmid' => 'course_modules']
+     */
+    protected function knownmappings() {
+        static $knownmappings;
+
+        if (empty($knownmappings)) {
+            $knownmappings = [];
+            foreach ($this->knownmappingfields as $referencetable => $fields) {
+                foreach ($fields as $field) {
+                    $knownmappings[$field] = $referencetable;
+                }
+            }
+        }
+
+        return $knownmappings;
     }
 }

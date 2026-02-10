@@ -19,7 +19,8 @@
  *
  * @package    local_adminer
  * @author     Andreas Grabs <moodle@grabs-edv.de>
- * @copyright  Andreas Grabs
+ * @author     Harshil Patel <harshil8595@gmail.com>
+ * @copyright  Andreas Grabs, Harshil Patel
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -28,7 +29,9 @@ namespace local_adminer\adminer_plugins;
 /**
  * Add table relations as links into the page.
  *
- * @copyright  2026 Harshil Patel <harshil8595@gmail.com>
+ * @author     Andreas Grabs <moodle@grabs-edv.de>
+ * @author     Harshil Patel <harshil8595@gmail.com>
+ * @copyright  Andreas Grabs, Harshil Patel
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class mdl_foreign_key extends \AdminNeo\Plugin {
