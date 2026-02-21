@@ -53,6 +53,9 @@ class xmldb extends \XMLDBAction {
     /** @var array Found foreign key relationships. */
     protected $relationships;
 
+    /** @var array All relations found by parsing db/install.xml files */
+    protected $derivedrelations;
+
     /**
      * Summary of knownmappingfields
      *
@@ -203,6 +206,17 @@ class xmldb extends \XMLDBAction {
                         $tabledef[$field->getName()] = $typedef;
                     }
                     $this->tables[$table->getName()] = $tabledef;
+                    $keys = $table->getKeys();
+                    foreach ($keys as $key) {
+                        if ($key->getType() == XMLDB_KEY_FOREIGN) {
+                            $fieldname = $key->getFields()[0];
+                            $reffieldname = $key->getRefFields()[0];
+                            $this->derivedrelations[$table->getName()][$fieldname] = [
+                                $key->getRefTable(),
+                                $reffieldname,
+                            ];
+                        }
+                    }
                 }
             }
         }
@@ -282,7 +296,14 @@ class xmldb extends \XMLDBAction {
             return;
         }
 
-        $targettable = $this->find_target_table($colname);
+        $targettablerelation = $this->find_target_table_relation($tablename, $colname);
+        if (is_array($targettablerelation)) {
+            $targettable = $targettablerelation[0];
+            $targetfield = $targettablerelation[1];
+        } else {
+            $targettable = $targettablerelation;
+            $targetfield = 'id';
+        }
 
         // If target table is found, add relationship.
         if ($targettable && isset($this->tables[$targettable])) {
@@ -290,7 +311,7 @@ class xmldb extends \XMLDBAction {
                 'source'      => $tablename,
                 'source_col'  => $colname,
                 'target'      => $targettable,
-                'target_col'  => 'id',
+                'target_col'  => $targetfield,
             ];
         }
     }
@@ -299,15 +320,22 @@ class xmldb extends \XMLDBAction {
      * Finds the target table name for a given column name by checking known mappings and naming patterns.
      *
      * This method attempts to identify the target table that a column references by:
-     * 1. First checking if the column name exists in the known mappings array
+     * 1. First check in derived relations from parsing install.xml files
+     * 1. Second checking if the column name exists in the known mappings array
      * 2. If not found, checking if the column follows the pattern '<name>id' and extracting the base name
      * 3. Finally, checking if the column name itself (without 'id' suffix) matches a table name
      *
+     * @param string $tablename The name of the table owning column.
      * @param string $colname The name of the column to analyze for finding its target table.
-     * @return string|null The name of the target table if found, or null if no matching table is identified.
+     * @return array|string|null The array containing target table name and column or the name of the matching target table if found, or null.
      */
-    protected function find_target_table($colname) {
-        // Check special mappings first.
+    protected function find_target_table_relation($tablename, $colname) {
+        // First check in derived relations.
+        if (isset($this->derivedrelations[$tablename][$colname])) {
+            return $this->derivedrelations[$tablename][$colname];
+        }
+
+        // Check special mappings.
         if (!empty($this->knownmappings()[$colname])) {
             return $this->knownmappings()[$colname];
         }
