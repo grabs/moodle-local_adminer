@@ -327,7 +327,8 @@ class xmldb extends \XMLDBAction {
      *
      * @param string $tablename The name of the table owning column.
      * @param string $colname The name of the column to analyze for finding its target table.
-     * @return array|string|null The array containing target table name and column or the name of the matching target table if found, or null.
+     * @return array|string|null The array containing target table name and column or the name of the matching target table
+     *                           - if found, or null.
      */
     protected function find_target_table_relation($tablename, $colname) {
         // First check in derived relations.
