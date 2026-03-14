@@ -1,5 +1,8 @@
 ## Release notes
 
+### Version 5.2.3 (2026031401)
+* Add support for derived relations in XMLDB and remove obsolete relations file (#31)
+
 ### Version 5.2.2 (2026020101)
 * Add foreign key links support
 
