@@ -57,6 +57,12 @@ class xmldb extends \XMLDBAction {
     protected $derivedrelations;
 
     /**
+     * The default reference field in Moodle is "id"
+     * @var string
+     */
+    public const DEFAULT_REFFIELD = 'id';
+
+    /**
      * Summary of knownmappingfields
      *
      * The structure is as follows:
@@ -296,17 +302,14 @@ class xmldb extends \XMLDBAction {
             return;
         }
 
-        $targettablerelation = $this->find_target_table_relation($tablename, $colname);
-        if (is_array($targettablerelation)) {
-            $targettable = $targettablerelation[0];
-            $targetfield = $targettablerelation[1];
-        } else {
-            $targettable = $targettablerelation;
-            $targetfield = 'id';
+        if (!$targettablerelation = $this->find_target_table_relation($tablename, $colname)) {
+            return;
         }
+        $targettable = $targettablerelation[0]; // The table name.
+        $targetfield = $targettablerelation[1]; // The reference field (almost ever "id").
 
         // If target table is found, add relationship.
-        if ($targettable && isset($this->tables[$targettable])) {
+        if (isset($this->tables[$targettable])) {
             $this->relationships[] = [
                 'source'      => $tablename,
                 'source_col'  => $colname,
@@ -321,13 +324,13 @@ class xmldb extends \XMLDBAction {
      *
      * This method attempts to identify the target table that a column references by:
      * 1. First check in derived relations from parsing install.xml files
-     * 1. Second checking if the column name exists in the known mappings array
-     * 2. If not found, checking if the column follows the pattern '<name>id' and extracting the base name
-     * 3. Finally, checking if the column name itself (without 'id' suffix) matches a table name
+     * 2. If there is none, checking if the column name exists in the known mappings array
+     * 3. If not found, checking if the column follows the pattern '<name>id' and extracting the base name
+     * 4. Finally, checking if the column name itself (without 'id' suffix) matches a table name
      *
      * @param string $tablename The name of the table owning column.
      * @param string $colname The name of the column to analyze for finding its target table.
-     * @return array|string|null The array containing target table name and column or the name of the matching target table if found, or null.
+     * @return array|null The array containing target table name and column of the matching target table if found, or null.
      */
     protected function find_target_table_relation($tablename, $colname) {
         // First check in derived relations.
@@ -335,9 +338,9 @@ class xmldb extends \XMLDBAction {
             return $this->derivedrelations[$tablename][$colname];
         }
 
-        // Check special mappings.
-        if (!empty($this->knownmappings()[$colname])) {
-            return $this->knownmappings()[$colname];
+        // Check known mappings.
+        if ($knownmapping = $this->knownmapping($colname)) {
+            return $knownmapping;
         }
 
         // Check standard pattern: <name>id -> <name>.
@@ -362,7 +365,8 @@ class xmldb extends \XMLDBAction {
      * The method checks each variant against the loaded tables and returns the first match found.
      *
      * @param string $basename The base name to use for generating table name variants.
-     * @return string|null The name of the matching table if found, or null if no variant matches an existing table.
+     * @return array|null The name of the matching table and its reference field if found,
+     *                    or null if no variant matches an existing table.
      */
     protected function find_table_variant($basename) {
         $variants = [
@@ -373,7 +377,7 @@ class xmldb extends \XMLDBAction {
 
         foreach ($variants as $variant) {
             if (isset($this->tables[$variant])) {
-                return $variant;
+                return [$variant, static::DEFAULT_REFFIELD];
             }
         }
 
@@ -662,16 +666,17 @@ class xmldb extends \XMLDBAction {
     }
 
     /**
-     * Builds and returns a flattened mapping of field names to their reference tables.
+     * Checks if a column name matches any known foreign key mapping.
      *
-     * This method creates a reverse lookup array from the $knownmappingfields property,
-     * where each field name maps directly to its corresponding reference table.
+     * This method determines if a given column name corresponds to a known foreign key relationship
+     * by checking against predefined mappings of column names to reference tables. The method uses
+     * a static cache to store the known mappings for performance optimization.
      *
-     * @return array An associative array where keys are field names and values are their
-     *               corresponding reference table names. For example:
-     *               ['userid' => 'user', 'courseid' => 'course', 'cmid' => 'course_modules']
+     * @param string $colname The column name to check for known foreign key mappings.
+     * @return array|null An array containing the reference table name and the default reference field
+     *                    (typically 'id') if a known mapping exists, or null if no mapping is found.
      */
-    protected function knownmappings() {
+    protected function knownmapping(string $colname) {
         static $knownmappings;
 
         if (empty($knownmappings)) {
@@ -683,6 +688,9 @@ class xmldb extends \XMLDBAction {
             }
         }
 
-        return $knownmappings;
+        if (empty($knownmappings[$colname])) {
+            return null;
+        }
+        return [$knownmappings[$colname], static::DEFAULT_REFFIELD];
     }
 }
