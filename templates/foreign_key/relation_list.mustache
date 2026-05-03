@@ -39,16 +39,27 @@
 }}
 
 <p>
-    <a class="" data-bs-toggle="collapse" href="#relationlist-{{uniqid}}" role="button" aria-expanded="false" aria-controls="collapseExample">
+    <a class="" data-bs-toggle="collapse" href="#relationlist-{{uniqid}}" role="button" aria-expanded="false" aria-controls="relationlist-{{uniqid}}">
         {{#str}}showrelationlist, local_adminer{{/str}}
     </a>
 </p>
 <div class="collapse" id="relationlist-{{uniqid}}">
     <div class="card card-body">
-        <code>
-            {{#relationlist}}
-                <div>{{source}}.{{source_col}}={{target}}.{{target_col}}</div>
-            {{/relationlist}}
-        </code>
+        <table class="table table-striped table-hover table-sm">
+            <thead>
+               <tr>
+                    <th>{{#str}}source_col, local_adminer{{/str}}</th>
+                    <th>{{#str}}target_col, local_adminer{{/str}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#relationlist}}
+                    <tr>
+                        <td>{{source}}.{{source_col}}</td>
+                        <td>{{target}}.{{target_col}}</td>
+                    </tr>
+                {{/relationlist}}
+            </tbody>
+        </table>
     </div>
 </div>
