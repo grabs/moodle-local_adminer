@@ -1,5 +1,10 @@
 ## Release notes
 
+### Version 5.2.4 (2026050300)
+* Fix color contrast on dark themes (#29)
+* Add missing cachedev_... string (#32)
+* Fix wrong pagination fieldset (#33)
+
 ### Version 5.2.3 (2026031401)
 * Add support for derived relations in XMLDB and remove obsolete relations file (#31)
 
