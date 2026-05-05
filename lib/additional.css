@@ -9,16 +9,50 @@ div.footer div.logout {
 
 .handle .icon, .icon.handle,
 .fieldset-icon {
-  opacity: 1;
+    opacity: 1;
 }
 legend {
+    float: none;
     font-size: 0.75rem;
 }
 
 h1, .h1 {
-  font-size: 1.5rem;
+    font-size: 1.5rem;
 }
 
 h2, .h2 {
-  font-size: 1.2rem;
+    font-size: 1.2rem;
+}
+
+.jush {
+    --text-color: #333 !important;
+    --bg-color: #fff !important;
+    --keyword-color: #03c !important;
+    --identifier-color: #808 !important;
+    --value-color: #d10 !important;
+    --string-color: #d10 !important;
+    --string-plain-color: #d10 !important;
+    --number-color: #090 !important;
+    --attribute-color: #008080 !important;
+    --js-bg-color: #f0f6ff !important;
+    --css-bg-color: #fffae0 !important;
+    --php-color: #000 !important;
+    --php-bg-color: #fff3f0 !important;
+    --php-sql-bg-color: #fffae0 !important;
+}
+:root {
+    --link-text: hsl(220,60%,45%) !important;
+    --link-text-hover: hsl(220,60%,30%) !important;
+    --selection-bg: hsla(220,80%,50%,12%) !important;
+    --list-active: hsla(220,80%,45%,7%) !important;
+    --list-active-hover: hsla(220,80%,45%,12%) !important;
+    --button-bg-hover: hsl(220,70%,96%) !important;
+    --button-border: hsl(220,60%,45%) !important;
+    --button-border-hover: hsl(220,60%,30%) !important;
+    --button-text: hsl(220,60%,45%) !important;
+    --button-text-hover: hsl(220,60%,30%) !important;
+    --button-default-bg: hsl(220,60%,45%) !important;
+    --button-default-bg-hover: hsl(220,60%,30%) !important;
+    --button-default-border: hsl(220,60%,45%) !important;
+    --button-default-border-hover: hsl(220,60%,30%) !important;
 }
