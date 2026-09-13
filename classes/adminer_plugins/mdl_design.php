@@ -54,6 +54,29 @@ class mdl_design extends \AdminNeo\Plugin {
             echo '<link rel="stylesheet" type="text/css" href="' . $url . '">';
         }
 
+        $sesskey = json_encode(sesskey());
+        echo \AdminNeo\script(<<<JS
+            (() => {
+                const sesskey = {$sesskey};
+                const isAdminer = url => url.origin === location.origin && url.pathname === location.pathname;
+                document.addEventListener('formdata', event => {
+                    const form = event.target;
+                    if (form.method.toLowerCase() === 'post' && isAdminer(new URL(form.action, location.href))) {
+                        event.formData.set('sesskey', sesskey);
+                    }
+                }, true);
+                const adminerAjax = window.ajax;
+                window.ajax = function(url, onSuccess, data, ...options) {
+                    const target = new URL(url, location.href);
+                    if (data && isAdminer(target)) {
+                        target.searchParams.set('sesskey', sesskey);
+                        url = target.href;
+                    }
+                    return adminerAjax.call(this, url, onSuccess, data, ...options);
+                };
+            })();
+            JS);
+
         return null;
     }
 

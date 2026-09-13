@@ -27,6 +27,10 @@ require_once('../../../config.php');
 require_login();
 require_capability('local/adminer:useadminer', context_system::instance());
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    require_sesskey();
+}
+
 // include original Adminer or Adminer Editor
 if (\local_adminer\util::check_adminer_secret()) {
     static $adminerlang;
