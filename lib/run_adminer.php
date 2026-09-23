@@ -74,10 +74,12 @@ if (\local_adminer\util::check_adminer_secret()) {
             $_POST['auth']['db'] = $CFG->dbname;
         }
     } else {
-        // Ensure that the username is correct. Only the user from the config.php can be used.
-        if ($userparam !== $dbuser) {
-            die('Invalid username');
+        // Ensure that the server and username are correct. Only the connection from the config.php can be used.
+        if ($userparam !== $dbuser || $driverparam !== $dbhost) {
+            die('Invalid connection target');
         }
+        // Prevent logging in to another server through the login form.
+        unset($_POST['auth']);
     }
 
     // Prevent any output of internal access data if something went wrong.
