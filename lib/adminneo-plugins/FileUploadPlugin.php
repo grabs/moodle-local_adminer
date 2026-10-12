@@ -8,7 +8,7 @@ use Exception;
  * Replaces fields ending with "_path" by `<input type="file">` in edit form and displays links to the uploaded files in
  * table select.
  *
- * Last changed in release: v5.2.0
+ * Last changed in release: v5.5.1
  *
  * @link https://www.adminneo.org/plugins/#usage
  *
@@ -31,11 +31,12 @@ class FileUploadPlugin extends Plugin
 
 	/**
 	 * @param string $uploadPath Path to a writable directory where uploading data will be stored.
-	 *
+	 *                           It is strongly recommended to disable script execution in this folder.
 	 * @param ?string $linkPath Prefix for displaying data, null stands for $uploadPath.
 	 * @param string $extensions Regular expression with allowed file extensions.
 	 */
-	public function __construct($uploadPath = "../static/data/", $linkPath = null, $extensions = "[a-zA-Z0-9]+")
+	public function __construct($uploadPath = "../static/data/", $linkPath = null,
+		$extensions = "jpe?g|png|gif|webp|svg|pdf|txt")
 	{
 		$this->uploadPath = $uploadPath;
 		$this->linkPath = isset($linkPath) ? $linkPath : $uploadPath;
@@ -62,9 +63,14 @@ class FileUploadPlugin extends Plugin
 		return "<input type='file'$attrs>";
 	}
 
-	public function processFieldInput($field, $value, $function = "")
+	/**
+	 * @return string|false|null
+	 *
+	 * @throws Exception
+	 */
+	public function processFieldInput(array $field, $value, $function = "")
 	{
-		if (!$field || !($shortFieldName = $this->matchField($field))) {
+		if (!($shortFieldName = $this->matchField($field))) {
 			return null;
 		}
 
@@ -72,9 +78,12 @@ class FileUploadPlugin extends Plugin
 		$tableName = ($_GET["edit"] != "" ? $_GET["edit"] : $_GET["select"]);
 		$fieldName = $field["field"];
 		$files = $_FILES["fields"];
+		if (!$files) {
+			return null;
+		}
 
 		// Check upload error and file extension.
-		if ($files["error"][$fieldName] || !preg_match('~\.(' . $this->extensions . ')$~', $files["name"][$fieldName], $matches)) {
+		if ($files["error"][$fieldName] || !preg_match('~\.(' . $this->extensions . ')$~i', $files["name"][$fieldName], $matches)) {
 			return false;
 		}
 
@@ -86,7 +95,7 @@ class FileUploadPlugin extends Plugin
 
 		// Generate random unique file name.
 		do {
-			$filename = $this->generateName() . $matches[0];
+			$filename = Random::strongKey() . $matches[0];
 
 			$targetPath = "$targetDir/" . $this->encodeFs($shortFieldName) . "-$filename";
 		} while (file_exists($targetPath));
@@ -102,15 +111,6 @@ class FileUploadPlugin extends Plugin
 	private function matchField(array $field)
 	{
 		return preg_match('~(.*)_path$~', $field["field"], $matches) ? $matches[1] : null;
-	}
-
-	private function generateName()
-	{
-		try {
-			return function_exists('random_bytes') ? bin2hex(random_bytes(8)) : uniqid("", true);
-		} catch (Exception $e) {
-			return uniqid("", true);
-		}
 	}
 
 	private function encodeUrl($value)

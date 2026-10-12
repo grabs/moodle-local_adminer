@@ -5,8 +5,8 @@ namespace AdminNeo;
 /**
  * Logs all queries to SQL file.
  *
- * Last changed in release: v5.2.0
- * 
+ * Last changed in release: v5.5.1
+ *
  * @link https://www.adminneo.org/plugins/#usage
  *
  * @author Jakub Vrana, https://www.vrana.cz/
@@ -45,8 +45,12 @@ class SqlLogPlugin extends Plugin
 	private function log($query)
 	{
 		if ($this->filename == "") {
-			$dbName = $this->admin->getDatabase();
-			$this->filename = $dbName . ($dbName ? "-" : "") . "log.sql";
+			$name = $this->admin->getDatabase();
+			if ($name && (isset($_GET["ns"]) ? $_GET["ns"] : "") != "") {
+				$name .= "." . $_GET["ns"];
+			}
+
+			$this->filename = $this->encodeFs($name) . ($name ? "-" : "") . "log.sql";
 		}
 
 		$folder = dirname($this->filename);
@@ -64,4 +68,13 @@ class SqlLogPlugin extends Plugin
 		fclose($fp);
 	}
 
+	private function encodeFs($value)
+	{
+		// Encode special filesystem characters.
+		return strtr($value, [
+			'.' => '%2E',
+			'/' => '%2F',
+			'\\' => '%5C',
+		]);
+	}
 }

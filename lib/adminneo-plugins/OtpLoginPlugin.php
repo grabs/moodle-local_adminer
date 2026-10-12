@@ -7,7 +7,7 @@ namespace AdminNeo;
  *
  * The implementation uses standard SHA1 algorithm, 30s time interval and 6-digits code.
  *
- * Last changed in release: v5.2.0
+ * Last changed in release: v5.3.0
  *
  * @link https://www.adminneo.org/plugins/otp-login
  *
@@ -76,7 +76,7 @@ class OtpLoginPlugin extends Plugin
 	private function getOtp($timeSlot)
 	{
 		$data = str_pad(pack("N", $timeSlot), 8, "\0", STR_PAD_LEFT);
-		$hash = hash_hmac("sha1", $data, $this->secret, true);
+		$hash = Hash::hmacSha1($data, $this->secret);
 		$offset = ord(substr($hash, -1)) & 0xF;
 		$unpacked = unpack("N", substr($hash, $offset, 4));
 

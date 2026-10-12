@@ -1,7 +1,6 @@
 <?php
 
 namespace AdminNeo;
-defined('MOODLE_INTERNAL') || die;
 
 /**
  * Allows using AdminNeo or EditorNeo inside a frame by modifying `X-Frame-Options` and `Content-Security-Policy`
