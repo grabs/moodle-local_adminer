@@ -1,5 +1,10 @@
 ## Release notes
 
+### Version 5.2.5 (2026101700)
+* Update to adminneo 5.8.0 [Releases notes](https://github.com/adminneo-org/adminneo/releases/tag/v5.8.0)
+* MBS-11074: Pin the Adminer connection target (#35)
+* Update github actions
+
 ### Version 5.2.4 (2026050300)
 * Fix color contrast on dark themes (#29)
 * Add missing cachedev_... string (#32)
