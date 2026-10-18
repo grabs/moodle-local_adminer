@@ -39,6 +39,9 @@ class util {
     /** The string for $CFG->local_adminer_secret which mean "disabled" */
     public const DISABLED_SECRET = '!!!';
 
+    /** Number of wrong secrets allowed per session */
+    public const MAX_SECRET_FAILURES = 5;
+
     /**
      * Get the adminer url with the current driver
      *
@@ -73,8 +76,7 @@ class util {
         if ($loadedsecret !== $adminersecret) {
             $secretform = new \local_adminer\secret_form();
             if ($data = $secretform->get_data()) {
-                if ($data->adminersecret === $adminersecret) {
-                    $SESSION->local_adminer_secret = $data->adminersecret;
+                if (static::verify_adminer_secret((string) $data->adminersecret)) {
                     redirect(static::get_adminer_url());
                 }
                 \core\notification::error(get_string('wrong_adminer_secret', 'local_adminer'));
@@ -91,6 +93,35 @@ class util {
         }
 
         return true;
+    }
+
+    /**
+     * Compare a submitted secret with the configured one, count failures in the session and log the outcome.
+     *
+     * @param string $secret The submitted secret.
+     * @return bool True if the secret is correct.
+     * @throws \moodle_exception If too many wrong secrets were submitted in this session.
+     */
+    public static function verify_adminer_secret(string $secret): bool {
+        global $CFG, $SESSION;
+
+        $adminersecret = (string) ($CFG->local_adminer_secret ?? '');
+        $failures = $SESSION->local_adminer_failures ?? 0;
+        if ($failures >= static::MAX_SECRET_FAILURES) {
+            throw new \moodle_exception('adminer_secret_locked', 'local_adminer');
+        }
+
+        $eventdata = ['context' => \context_system::instance()];
+        if (hash_equals($adminersecret, $secret)) {
+            unset($SESSION->local_adminer_failures);
+            $SESSION->local_adminer_secret = $secret;
+            \local_adminer\event\secret_accepted::create($eventdata)->trigger();
+            return true;
+        }
+
+        $SESSION->local_adminer_failures = $failures + 1;
+        \local_adminer\event\secret_rejected::create($eventdata)->trigger();
+        return false;
     }
 
     /**
